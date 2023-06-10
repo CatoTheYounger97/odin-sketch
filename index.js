@@ -1,47 +1,61 @@
 
 createPageButtons();
-// const gridResolutionButton = document.createElement("button");
-// gridResolutionButton.innerText = "Canvas Resolution";
-// gridResolutionButton.setAttribute("id", `gridButton`);
-// document.querySelector("body").appendChild(gridResolutionButton);
 
 const defaultGridSize = 16;
 buildGrid(defaultGridSize);
 
-setHoverAction(hoeverEventDefault);
+setHoverAction(hoverEventDefault);
 
-setCanvasResolution();
+setButtonActions();
 
 // FUNCTIONS
 
-function hoverEventRGB(event) 
+function setButtonActions()
 {
-    event.target.style.backgroundColor = "rgb(0,0,0)";
-}
+    let activeAction = hoverEventDefault;
 
-function hoverEventShading(event)
-{
-    event.target.style.backgroundColor = "yellow";
-}
-
-function hoeverEventDefault(event)
-{
-    event.target.style.backgroundColor = "red";
-}
-
-function setCanvasResolution()
-{
-    button = document.querySelector("#gridButton");
+    let canvasResolution = 16;
+    let button = document.querySelector("#gridButton");
     button.addEventListener('click', (e) => {
-        let canvasResolution = prompt("Set Canvas Resolution (max: 100)");
+        canvasResolution = prompt("Set Canvas Resolution (max: 100)");
         if (+canvasResolution > 100) canvasResolution = 100;
 
         destroyGrid();
         buildGrid(canvasResolution);
 
-        setHoverAction(hoeverEventDefault);
+        setHoverAction(activeAction);
 
     });
+
+    button = document.querySelector("#defaultButton");
+    button.addEventListener('click', () => {
+        removeHoverAction(activeAction);
+        setHoverAction(hoverEventDefault);
+        activeAction = hoverEventDefault;
+    });
+
+    button = document.querySelector("#rgbButton");
+    button.addEventListener('click', () => {
+        removeHoverAction(activeAction);
+        setHoverAction(hoverEventRGB);
+        activeAction = hoverEventRGB;
+    });
+
+    button = document.querySelector("#shadeButton");
+    button.addEventListener('click', () => {
+        removeHoverAction(activeAction);
+        setHoverAction(hoverEventShading);
+        activeAction = hoverEventShading;
+    });
+
+    button = document.querySelector("#clearButton");
+    button.addEventListener('click', () => {
+        destroyGrid();
+        buildGrid(canvasResolution);
+
+        setHoverAction(activeAction);
+    });
+
 }
 
 function setHoverAction(action)
@@ -50,6 +64,15 @@ function setHoverAction(action)
 
     gridSquareList.forEach((element) => {
         element.addEventListener('mouseover', action );
+    });
+}
+
+function removeHoverAction(action)
+{
+    gridSquareList = document.querySelectorAll(".GridSquare");
+
+    gridSquareList.forEach((element) => {
+        element.removeEventListener('mouseover', action);
     });
 }
 
@@ -97,6 +120,11 @@ function createPageButtons()
     gridResolutionButton.setAttribute("id", `gridButton`);
     document.querySelector("body").appendChild(gridResolutionButton);
 
+    const defaultButton = document.createElement("button");
+    defaultButton.innerText = "Default Red";
+    defaultButton.setAttribute("id", `defaultButton`);
+    document.querySelector("body").appendChild(defaultButton);
+
     const switchToRGB = document.createElement("button");
     switchToRGB.innerText = "Random RGB";
     switchToRGB.setAttribute("id", `rgbButton`);
@@ -107,4 +135,33 @@ function createPageButtons()
     switchToShade.setAttribute("id", `shadeButton`);
     document.querySelector("body").appendChild(switchToShade);
 
+    const clearCanvas = document.createElement("button");
+    clearCanvas.innerText = "Clear";
+    clearCanvas.setAttribute("id", `clearButton`);
+    document.querySelector("body").appendChild(clearCanvas);
+
+}
+
+function hoverEventRGB(e) 
+{
+    e.target.style.backgroundColor = `rgb(
+        ${getRandom255()},
+        ${getRandom255()},
+        ${getRandom255()}
+        )`;
+}
+
+function hoverEventShading(e)
+{
+    e.target.style.backgroundColor = "yellow";
+}
+
+function hoverEventDefault(e)
+{
+    e.target.style.backgroundColor = "red";
+}
+
+function getRandom255()
+{
+    return Math.random() * 255;
 }
