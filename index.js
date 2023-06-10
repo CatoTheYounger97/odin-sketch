@@ -5,20 +5,7 @@ gridResolutionButton.innerText = "Canvas Resolution";
 gridResolutionButton.setAttribute("id", `gridButton`);
 document.querySelector("body").appendChild(gridResolutionButton);
 
-const gridContainer = document.createElement("div");
-gridContainer.setAttribute("id", `gridContainer`);
-document.querySelector("body").appendChild(gridContainer);
-
-buildGrid(gridContainer, 16);
-
-// createSubDivs(gridContainer, 16, "GridRow", "row");
-
-// gridRowsList = document.querySelectorAll(".GridRow");
-
-// for (gridRow of gridRowsList)
-// {
-//     createSubDivs(gridRow, 16, "GridSquare", "square");
-// }
+buildGrid(16);
 
 gridSquareList = document.querySelectorAll(".GridSquare");
 
@@ -33,7 +20,10 @@ function setCanvasResolution(button)
     let canvasResolution = 16;
 
     button.addEventListener('click', (e) => {
-        canvasResolution = prompt("Set Canvas Resolution");
+        // canvasResolution = prompt("Set Canvas Resolution");
+
+        console.log("click");
+        destroyGrid();
 
     });
 }
@@ -62,10 +52,13 @@ function createSubDivs(parentDiv, quantity, divClass, divID)
     }
 }
 
-function buildGrid(containerNode, size) 
+function buildGrid( size ) 
 {
+    const gridContainer = document.createElement("div");
+    gridContainer.setAttribute("id", `gridContainer`);
+    document.querySelector("body").appendChild(gridContainer);
     
-    createSubDivs(containerNode, size, "GridRow", "row");
+    createSubDivs(gridContainer, size, "GridRow", "row");
 
     gridRowsList = document.querySelectorAll(".GridRow");
 
@@ -74,4 +67,10 @@ function buildGrid(containerNode, size)
         createSubDivs(gridRow, size, "GridSquare", "square");
     }
 
+}
+
+function destroyGrid()
+{
+    const gridContainer = document.querySelector("#gridContainer");
+    document.querySelector("body").removeChild(gridContainer);
 }
