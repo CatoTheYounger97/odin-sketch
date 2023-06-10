@@ -1,8 +1,14 @@
-// create top div
+
+
+const gridResolutionButton = document.createElement("button");
+gridResolutionButton.innerText = "Canvas Resolution";
+gridResolutionButton.setAttribute("id", `gridButton`);
+document.querySelector("body").appendChild(gridResolutionButton);
 
 const gridContainer = document.createElement("div");
 gridContainer.setAttribute("id", `gridContainer`);
 document.querySelector("body").appendChild(gridContainer);
+
 
 createSubDivs(gridContainer, 16, "GridRow", "row");
 
@@ -17,12 +23,24 @@ gridSquareList = document.querySelectorAll(".GridSquare");
 
 addHoverAction(gridSquareList);
 
+setCanvasResolution(gridResolutionButton);
+
+// FUNCTIONS
+
+function setCanvasResolution(button)
+{
+    let canvasResolution = 16;
+
+    button.addEventListener('click', (e) => {
+        canvasResolution = prompt("Set Canvas Resolution");
+
+    });
+}
 
 function addHoverAction(elementList)
 {
     elementList.forEach((element) => {
         element.addEventListener('mouseover', (e) => {
-            console.log(e.target);
             e.target.style.backgroundColor = "red";
         });
         
