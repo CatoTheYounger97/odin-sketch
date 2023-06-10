@@ -9,15 +9,16 @@ const gridContainer = document.createElement("div");
 gridContainer.setAttribute("id", `gridContainer`);
 document.querySelector("body").appendChild(gridContainer);
 
+buildGrid(gridContainer, 16);
 
-createSubDivs(gridContainer, 16, "GridRow", "row");
+// createSubDivs(gridContainer, 16, "GridRow", "row");
 
-gridRowsList = document.querySelectorAll(".GridRow");
+// gridRowsList = document.querySelectorAll(".GridRow");
 
-for (gridRow of gridRowsList)
-{
-    createSubDivs(gridRow, 16, "GridSquare", "square");
-}
+// for (gridRow of gridRowsList)
+// {
+//     createSubDivs(gridRow, 16, "GridSquare", "square");
+// }
 
 gridSquareList = document.querySelectorAll(".GridSquare");
 
@@ -59,4 +60,18 @@ function createSubDivs(parentDiv, quantity, divClass, divID)
         // append to parent div
         parentDiv.appendChild(rowDiv);
     }
+}
+
+function buildGrid(containerNode, size) 
+{
+    
+    createSubDivs(containerNode, size, "GridRow", "row");
+
+    gridRowsList = document.querySelectorAll(".GridRow");
+
+    for (gridRow of gridRowsList)
+    {
+        createSubDivs(gridRow, size, "GridSquare", "square");
+    }
+
 }
