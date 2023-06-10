@@ -5,7 +5,8 @@ gridResolutionButton.innerText = "Canvas Resolution";
 gridResolutionButton.setAttribute("id", `gridButton`);
 document.querySelector("body").appendChild(gridResolutionButton);
 
-buildGrid(16);
+const defaultGridSize = 16;
+buildGrid(defaultGridSize);
 
 addHoverAction();
 
