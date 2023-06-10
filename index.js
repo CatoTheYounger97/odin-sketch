@@ -1,16 +1,16 @@
 // create top div
 
-const gridDiv = document.createElement("div");
+const gridContainer = document.createElement("div");
+gridContainer.setAttribute("id", `gridContainer`);
+document.querySelector("body").appendChild(gridContainer);
 
-document.querySelector("body").appendChild(gridDiv);
-
-createSubDivs(gridDiv, 50, "GridRow", "row");
+createSubDivs(gridContainer, 16, "GridRow", "row");
 
 gridRowsList = document.querySelectorAll(".GridRow");
 
 for (gridRow of gridRowsList)
 {
-    createSubDivs(gridRow, 50, "GridSquare", "square");
+    createSubDivs(gridRow, 16, "GridSquare", "square");
 }
 
 gridSquareList = document.querySelectorAll(".GridSquare");

@@ -1,10 +1,17 @@
-.GridSquare {
-    width: 1px;
-    height: 1px;
-    background-color: blue;
+#gridContainer {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
 
+}
+
+.GridSquare {
+    background-color: blue;
+    flex: 1;
 }
 
 .GridRow {
     display: flex;
+    flex: 1;
 }
