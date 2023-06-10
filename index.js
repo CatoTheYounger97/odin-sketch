@@ -1,21 +1,37 @@
 
-
-const gridResolutionButton = document.createElement("button");
-gridResolutionButton.innerText = "Canvas Resolution";
-gridResolutionButton.setAttribute("id", `gridButton`);
-document.querySelector("body").appendChild(gridResolutionButton);
+createPageButtons();
+// const gridResolutionButton = document.createElement("button");
+// gridResolutionButton.innerText = "Canvas Resolution";
+// gridResolutionButton.setAttribute("id", `gridButton`);
+// document.querySelector("body").appendChild(gridResolutionButton);
 
 const defaultGridSize = 16;
 buildGrid(defaultGridSize);
 
-addHoverAction();
+setHoverAction(hoeverEventDefault);
 
-setCanvasResolution(gridResolutionButton);
+setCanvasResolution();
 
 // FUNCTIONS
 
-function setCanvasResolution(button)
+function hoverEventRGB(event) 
 {
+    event.target.style.backgroundColor = "rgb(0,0,0)";
+}
+
+function hoverEventShading(event)
+{
+    event.target.style.backgroundColor = "yellow";
+}
+
+function hoeverEventDefault(event)
+{
+    event.target.style.backgroundColor = "red";
+}
+
+function setCanvasResolution()
+{
+    button = document.querySelector("#gridButton");
     button.addEventListener('click', (e) => {
         let canvasResolution = prompt("Set Canvas Resolution (max: 100)");
         if (+canvasResolution > 100) canvasResolution = 100;
@@ -23,20 +39,17 @@ function setCanvasResolution(button)
         destroyGrid();
         buildGrid(canvasResolution);
 
-        addHoverAction();
+        setHoverAction(hoeverEventDefault);
 
     });
 }
 
-function addHoverAction()
+function setHoverAction(action)
 {
     gridSquareList = document.querySelectorAll(".GridSquare");
 
     gridSquareList.forEach((element) => {
-        element.addEventListener('mouseover', (e) => {
-            e.target.style.backgroundColor = "red";
-        });
-        
+        element.addEventListener('mouseover', action );
     });
 }
 
@@ -75,4 +88,23 @@ function destroyGrid()
 {
     const gridContainer = document.querySelector("#gridContainer");
     document.querySelector("body").removeChild(gridContainer);
+}
+
+function createPageButtons() 
+{
+    const gridResolutionButton = document.createElement("button");
+    gridResolutionButton.innerText = "Canvas Resolution";
+    gridResolutionButton.setAttribute("id", `gridButton`);
+    document.querySelector("body").appendChild(gridResolutionButton);
+
+    const switchToRGB = document.createElement("button");
+    switchToRGB.innerText = "Random RGB";
+    switchToRGB.setAttribute("id", `rgbButton`);
+    document.querySelector("body").appendChild(switchToRGB);
+
+    const switchToShade = document.createElement("button");
+    switchToShade.innerText = "Shading";
+    switchToShade.setAttribute("id", `shadeButton`);
+    document.querySelector("body").appendChild(switchToShade);
+
 }
