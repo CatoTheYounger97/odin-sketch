@@ -4,42 +4,34 @@ const gridDiv = document.createElement("div");
 
 document.querySelector("body").appendChild(gridDiv);
 
-createSubDivs(gridDiv, 16, "GridRows", "row");
+createSubDivs(gridDiv, 50, "GridRow", "row");
 
-gridRowsList = document.querySelectorAll(".GridRows");
+gridRowsList = document.querySelectorAll(".GridRow");
 
 for (gridRow of gridRowsList)
 {
-    createSubDivs(gridRow, 16, "GridSquare", "square");
+    createSubDivs(gridRow, 50, "GridSquare", "square");
 }
 
+gridSquareList = document.querySelectorAll(".GridSquare");
 
-// for (let i = 0; i < 16; ++i) // create and appened 16 divs to create rows in the 16x16 grid 
-// {
-//     // create element
-//     const rowDiv = document.createElement("div");
-//     // add relevant tags
-//     rowDiv.classList.add("GridRows");
-//     rowDiv.setAttribute("id", `row${i + 1}`);
-//     // append to parent div
-//     gridDiv.appendChild(rowDiv);
+addHoverAction(gridSquareList);
 
-//     for (let j = 0; j < 16; ++j) // create and append 16 sub divs to each row
-//     {
-//         // create element
-//         const squareDiv = document.createElement("div");
-//         // add relevant tags
-//         squareDiv.classList.add("GridSquare");
-//         squareDiv.setAttribute("id", `square(${i + 1},${j + 1})`);
-//         // append to parent div
-//         rowDiv.appendChild(squareDiv);
-//     }
-// }
 
+function addHoverAction(elementList)
+{
+    elementList.forEach((element) => {
+        element.addEventListener('mouseover', (e) => {
+            console.log(e.target);
+            e.target.style.backgroundColor = "red";
+        });
+        
+    });
+}
 
 function createSubDivs(parentDiv, quantity, divClass, divID)
 {
-    for (let i = 0; i < quantity; ++i) // create and appened 16 divs to create rows in the 16x16 grid 
+    for (let i = 0; i < quantity; ++i) 
     {
         // create element
         const rowDiv = document.createElement("div");
