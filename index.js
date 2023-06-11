@@ -153,7 +153,21 @@ function hoverEventRGB(e)
 
 function hoverEventShading(e)
 {
-    e.target.style.backgroundColor = "yellow";
+    let existingColor = e.target.style.backgroundColor;
+
+    if ( existingColor === "rgb(0, 0, 0)" ) return; // early return if square is already black
+
+    let oldAlpha = 0.1; // default alpha value
+
+    if (existingColor.slice(0, 4) === "rgba") {
+        oldAlpha = existingColor.slice(-4).slice(0, -1) // extracts alpha component from rgba value.
+    }
+
+    console.log(existingColor);
+
+    let newAlpha = +oldAlpha < 1 ? +oldAlpha + 0.1 : 1 // increase alpha value by 0.1 if less than 1
+    e.target.style.backgroundColor = `rgba(0,0,0,${+newAlpha})`;
+
 }
 
 function hoverEventDefault(e)
